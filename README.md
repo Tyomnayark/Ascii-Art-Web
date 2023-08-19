@@ -3,7 +3,6 @@
 ## Description
 
 The "ASCII-ART-WEB" project aims to provide users with the ability to input a string of text and receive the corresponding ASCII art representation of that string on a web page. ASCII art is a form of art that uses characters from the ASCII character set to create visual representations of text or images. This project will enable users to interact with ASCII art in a user-friendly way through a web-based interface.
-Authors
 
 ## Usage
 To run the web server

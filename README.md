@@ -39,5 +39,4 @@ Go version 1.20
 Docker version 24.0.2
 
 ## Authors
-[@etolmach](https://01.alem.school/git/etolmach)
-[@yeakbay](https://01.alem.school/git/yeakbay)
+[Tyomnayark](https://github.com/Tyomnayark)

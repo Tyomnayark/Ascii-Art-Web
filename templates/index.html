@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Roboto+Mono&family=Tektur:wght@600&display=swap" rel="stylesheet">
+    <title>ASCII ART WEB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            <h1 class="intro_title">ASCII ART WEB</h1>
+        </div>
+        <div class="labels">
+            <span><b>01</b> Choose style</span>
+            <span><b>02</b> Enter text</span>
+            <span><b>03</b> Copy</span>
+            <span><b>04</b> Enjoy</span>
+            <span><b>05</b> Save</span>
+        </div>
+        <div class="text_input_box">
+            <div class="input_container">
+                
+                <div class="button_group">
+                    <div class="style_button">
+                        Change style
+                        <button class="style_button_toggle"></button>
+                        
+                        <div class="style_menu">
+                            <ul>
+                                <li onclick="handleChangeStyle('Standard')">Standard</li>
+                                <li onclick="handleChangeStyle('Shadow')">Shadow</li>
+                                <li onclick="handleChangeStyle('Thinkertoy')">Thinkertoy</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button id="copyBtn" class="copy_button">Copy</button>
+                    <button id="saveBtn" class="save_button" onclick="saveFile()">Save
+                        <div class="tooltip">Save txt file <span id="fileSize"></span> </div>
+                    </button>
+                    
+                </div>
+                <label>
+                    <!-- <form action="/save" method="post"> -->
+                        <textarea name="content" onkeyup="updateText()" placeholder="Type something"></textarea>
+                        <!-- <button type="submit">Save</button>
+                    </form> -->
+                    <span id="feedbackMsg" class="hidden">Text copied to clipboard!</span>
+                </label>
+            </div>
+            <div class="output_box">
+                <pre id="asciiArtDisplay" class="output_box"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+        let selectedStyle = "Standard";
+
+        function handleChangeStyle(style) {
+            selectedStyle = style;
+            handleInput();
+        }
+
+        function updateText() {
+            updateFileSize();
+            handleInput();
+        }
+
+        function handleInput() {
+            const inputText = document.querySelector('textarea').value;
+
+            fetch('/ascii-art?style=' + selectedStyle, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: inputText }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const asciiArtDisplay = document.getElementById('asciiArtDisplay');
+                asciiArtDisplay.textContent = data.asciiArt;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function copyTextToClipboard() {
+            const textToCopy = document.getElementById("asciiArtDisplay").innerText;
+
+            navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                const feedbackMsg = document.getElementById("feedbackMsg");
+                feedbackMsg.classList.remove("hidden");
+                setTimeout(() => {
+                    feedbackMsg.classList.add("hidden");
+                }, 2000); 
+            })
+            .catch((err) => {
+                console.error("Failed to copy text: ", err);
+            });
+        }
+
+        function saveFile() {
+        const textToSave = document.getElementById("asciiArtDisplay").innerText;
+        if (textToSave === "") {
+        console.error("File is empty. Cannot save.");
+        return;
+    }
+        const blob = new Blob([textToSave], { type: "text/plain;charset=utf-8" });
+        const fileSize = (textToSave.length / 1024).toFixed(2); 
+    const fileSizeElement = document.getElementById("fileSize");
+    fileSizeElement.innerText = ` (${fileSize} KB)`;
+       const anchor = document.createElement("a");
+       anchor.href = URL.createObjectURL(blob);
+       anchor.download = "ascii_art.txt";
+       anchor.click();
+    URL.revokeObjectURL(anchor.href);
+  }
+  function updateFileSize() {
+    const textToSave = document.getElementById("asciiArtDisplay").innerText;
+    const fileSize = (textToSave.length / 1024).toFixed(2); 
+    const fileSizeElement = document.getElementById("fileSize");
+    fileSizeElement.innerText = ` (${fileSize} KB)`;
+}
+
+        document.getElementById("copyBtn").addEventListener("click", copyTextToClipboard);
+    </script>
+</body>
+</html>

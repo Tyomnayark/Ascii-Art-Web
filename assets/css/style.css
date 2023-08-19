@@ -1,0 +1,218 @@
+body {
+    margin: 0;
+    /* background: url(../images/1643975076_3-phonoteka-org-p-chernii-fon-geometriya-3.webp) center; */
+    background: url(../images/back.webp) center;
+    font-size: 15px;
+    background-size: cover;
+    font-family: 'Tektur', cursive;
+    line-height: 1.6;
+    background-attachment: fixed;
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+/*Container*/
+.container {
+    width: 100%;
+    max-width: 3440px;
+    margin: 5px auto;
+}
+/*Intro*/
+.intro{
+    background-position: center;
+    background-size: contain;
+}
+.intro_title {
+    font-size: 60px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    margin: 10px auto; 
+    background-color: rgb(219, 33, 16);
+    padding: 0px ; 
+    border-radius: 20px;
+    max-width: 450px; 
+}
+/* Labels */
+.labels {
+    color: rgb(228, 228, 228);
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.labels span {
+    position: relative;
+}
+.labels span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(228, 228, 228);
+}
+.containerEditor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+ /*Text Input Box*/
+ .text_input_box {
+    font-family: 'Roboto Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+    width: 100%;
+    overflow-y: hidden;
+}
+.text_input_box textarea {
+    border-radius: 10px;
+    width: 100%; 
+    height: 60px;
+    resize: none; 
+}
+ /*Text Output Box*/
+.output_box {
+    width: calc(100% - 40px);
+    max-width: 10000px;
+    height: 60vh;
+    max-height: 8000px;
+    overflow-y: auto; 
+    overflow-x: auto; 
+    font-size: 18px;
+    background-color: white;
+    border-radius: 20px;
+    resize: none;
+    opacity: 0.6;
+    margin: 10px 20px; 
+
+}
+
+/*Buttons*/
+.button_group {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.save_button,
+ .style_button,
+  .copy_button    {
+    position: relative;
+    font-family: 'Kanit', sans-serif;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    border-radius: 10px;
+    transition: background-color 0.2s linear, color 0.2s linear;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+.style_button_toggle{
+    display: none;
+}
+
+.save_button:hover, .copy_button:hover, .style_button:hover   {
+    background-color: rgb(219, 33, 16);
+    color: white;
+}
+
+.style_button:hover .style_menu {
+    display: block;
+}
+
+/* save  button tooltip */
+.tooltip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    display: none;
+    padding: 10px;
+    color: #000;
+    z-index: 9999;
+    width: 100%;
+}
+.tooltip.visible {
+    bottom: calc(100% + 10px);
+}
+.save_button:hover > .tooltip{
+    display: block;
+}
+/* Menu */
+.style_menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    display: none;
+    padding: 10px;
+    color: #000;
+    z-index: 9999;
+    width: 100%;
+}
+.style_menu.visible {
+    bottom: calc(100% + 10px);
+}
+.style_menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.style_menu li {
+    cursor: pointer;
+    transition: background-color 0.2s linear, color 0.2s linear;
+}
+.style_menu li:hover {
+    background-color: rgb(219, 33, 16);
+    color: white;
+}
+/* Adaptability */
+@media (max-width: 600px) {
+    .container {
+      max-width: 100%; 
+    }
+    
+    .intro_title {
+      max-width: 90%; 
+    }
+  
+    .labels {
+        margin: 5px auto;
+      width: 90%;
+    }
+  
+    .text_input_box {
+        margin: 0 auto;
+      width: 90%;
+    }
+  
+    .output_box {
+        margin: 0 auto;
+      width: 90%;
+    }
+  }
+
+  .hidden {
+    display: none;
+}
+#feedbackMsg {
+    color: rgb(255, 255, 255);
+}
